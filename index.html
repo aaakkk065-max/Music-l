@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>استوديو الذكاء الاصطناعي</title>
+    <title>استوديو الذكاء الاصطناعي - إيفان</title>
     <style>
         body {
             background-color: #0d1b2a;
@@ -65,6 +65,10 @@
             font-size: 15px;
             font-weight: bold;
         }
+        audio {
+            width: 100%;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -73,53 +77,69 @@
         <h2>استوديو الذكاء الاصطناعي</h2>
         
         <label>صف اللحن أو الموسيقى:</label>
-        <input type="text" id="musicInput" placeholder="موسيقى وبيت سعاده">
+        <input type="text" id="musicInput" value="موسيقى راب حماسية لإيفان" placeholder="موسيقى وبيت سعاده">
         
         <label>اكتب الكلمات الجديدة:</label>
-        <textarea id="lyricsInput" rows="4" placeholder="اكتب كلمات الأغنية هنا..."></textarea>
+        <textarea id="lyricsInput" rows="4" placeholder="اكتب كلمات الأغنية هنا...">إيفان يا عزوة وفخر الجيل...</textarea>
         
-        <!-- زر التوليد مرتبط بالدالة مباشرة مع حماية تامة -->
-        <button onclick="generateSong()">توليد الأغنية</button>
+        <!-- زر التوليد -->
+        <button id="generateBtn">توليد الأغنية</button>
         
         <div id="result"></div>
+        
+        <!-- مشغل الصوت (مخفي حتى يتم التوليد) -->
+        <audio id="audioPlayer" controls style="display: none;">
+            <!-- رابط مقطع صوتي تجريبي حقيقي يعمل مباشرة -->
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            متصفحك لا يدعم مشغل الصوت
+        </audio>
     </div>
 
-    <!-- كود الجافاسكريبت المحمي من أي أخطاء (Null) -->
+    <!-- كود الجافاسكريبت للتشغيل والتفاعل -->
     <script>
-        function generateSong() {
-            const musicEl = document.getElementById('musicInput');
-            const lyricsEl = document.getElementById('lyricsInput');
-            const resultDiv = document.getElementById('result');
+        const btn = document.getElementById( generateBtn );
+        if (btn) {
+            btn.addEventListener( click , function() {
+                const musicEl = document.getElementById( musicInput );
+                const lyricsEl = document.getElementById( lyricsInput );
+                const resultDiv = document.getElementById( result );
+                const audioPlayer = document.getElementById( audioPlayer );
 
-            // حماية تامة لتجنب ظهور خطأ الـ Null نهائياً
-            if (!musicEl || !lyricsEl || !resultDiv) {
-                console.error("بعض العناصر غير موجودة في الصفحة!");
-                return;
-            }
+                if (!musicEl || !lyricsEl || !resultDiv) return;
 
-            const music = musicEl.value.trim();
-            const lyrics = lyricsEl.value.trim();
+                const music = musicEl.value.trim();
+                const lyrics = lyricsEl.value.trim();
 
-            if (!music || !lyrics) {
-                resultDiv.style.color = "#ff6b6b";
-                resultDiv.innerHTML = "⚠️ الرجاء تعبئة وصف اللحن والكلمات أولاً!";
-                return;
-            }
+                if (!music || !lyrics) {
+                    resultDiv.style.color = "#ff6b6b";
+                    resultDiv.innerHTML = "⚠️ الرجاء تعبئة وصف اللحن والكلمات أولاً!";
+                    return;
+                }
 
-            resultDiv.style.color = "#4ea8de";
-            resultDiv.innerHTML = "⏳ جاري معالجة وتوليد الأغنية...";
+                resultDiv.style.color = "#4ea8de";
+                resultDiv.innerHTML = "⏳ جاري توليد الأغنية ومعالجة الصوت...";
+                audioPlayer.style.display = "none";
 
-            // محاكاة التوليد بنجاح
-            setTimeout(() => {
-                resultDiv.style.color = "#52b788";
-                resultDiv.innerHTML = "✅ تم توليد الأغنية بنجاح!";
-            }, 3000);
+                // محاكاة وقت التوليد ثم إظهار وتشغيل الأغنية الحقيقية
+                setTimeout(() => {
+                    resultDiv.style.color = "#52b788";
+                    resultDiv.innerHTML = "✅ تم توليد الأغنية بنجاح!";
+                    
+                    // إظهار مشغل الصوت وبدء التشغيل
+                    audioPlayer.style.display = "block";
+                    audioPlayer.play().catch(e => {
+                        console.log("التشغيل التلقائي يتطلب نقرة من المستخدم");
+                    });
+                }, 2500);
+            });
         }
     </script>
 
-    <!-- أداة المطورين (Eruda) لتتبع أي أخطاء إن وجدت -->
+    <!-- أداة المطورين لمراقبة الأخطاء إن وجدت -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
 
 </body>
 </html>
+
+    
