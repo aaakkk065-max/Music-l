@@ -83,32 +83,35 @@
         <div id="result"></div>
     </div>
 
-    <!-- كود الجافاسكريبت المحمي من الأخطاء -->
+    <!-- كود الجافاسكريبت الآمن والمحدث -->
     <script>
-        document.getElementById( generateBtn ).addEventListener( click , function() {
-            const musicEl = document.getElementById( musicInput );
-            const lyricsEl = document.getElementById( lyricsInput );
-            const resultDiv = document.getElementById( result );
+        const btn = document.getElementById( generateBtn );
+        if (btn) {
+            btn.addEventListener( click , function() {
+                const musicEl = document.getElementById( musicInput );
+                const lyricsEl = document.getElementById( lyricsInput );
+                const resultDiv = document.getElementById( result );
 
-            if (!musicEl || !lyricsEl) return;
+                if (!musicEl || !lyricsEl || !resultDiv) return;
 
-            const music = musicEl.value;
-            const lyrics = lyricsEl.value;
+                const music = musicEl.value.trim();
+                const lyrics = lyricsEl.value.trim();
 
-            if (!music || !lyrics) {
-                resultDiv.style.color = "#ff6b6b";
-                resultDiv.innerHTML = "⚠️ الرجاء تعبئة وصف اللحن والكلمات أولاً!";
-                return;
-            }
+                if (!music || !lyrics) {
+                    resultDiv.style.color = "#ff6b6b";
+                    resultDiv.innerHTML = "⚠️ الرجاء تعبئة وصف اللحن والكلمات أولاً!";
+                    return;
+                }
 
-            resultDiv.style.color = "#4ea8de";
-            resultDiv.innerHTML = "⏳ جاري معالجة وتوليد الأغنية...";
+                resultDiv.style.color = "#4ea8de";
+                resultDiv.innerHTML = "⏳ جاري معالجة وتوليد الأغنية...";
 
-            setTimeout(() => {
-                resultDiv.style.color = "#52b788";
-                resultDiv.innerHTML = "✅ تم توليد الأغنية بنجاح!";
-            }, 3000);
-        });
+                setTimeout(() => {
+                    resultDiv.style.color = "#52b788";
+                    resultDiv.innerHTML = "✅ تم توليد الأغنية بنجاح!";
+                }, 3000);
+            });
+        }
     </script>
 
     <!-- أداة المطورين -->
@@ -118,4 +121,3 @@
 </body>
 </html>
 
-      
