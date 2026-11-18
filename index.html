@@ -78,46 +78,48 @@
         <label>اكتب الكلمات الجديدة:</label>
         <textarea id="lyricsInput" rows="4" placeholder="اكتب كلمات الأغنية هنا..."></textarea>
         
-        <button id="generateBtn">توليد الأغنية</button>
+        <!-- زر التوليد مرتبط بالدالة مباشرة مع حماية تامة -->
+        <button onclick="generateSong()">توليد الأغنية</button>
         
         <div id="result"></div>
     </div>
 
-    <!-- كود الجافاسكريبت الآمن والمحدث -->
+    <!-- كود الجافاسكريبت المحمي من أي أخطاء (Null) -->
     <script>
-        const btn = document.getElementById( generateBtn );
-        if (btn) {
-            btn.addEventListener( click , function() {
-                const musicEl = document.getElementById( musicInput );
-                const lyricsEl = document.getElementById( lyricsInput );
-                const resultDiv = document.getElementById( result );
+        function generateSong() {
+            const musicEl = document.getElementById('musicInput');
+            const lyricsEl = document.getElementById('lyricsInput');
+            const resultDiv = document.getElementById('result');
 
-                if (!musicEl || !lyricsEl || !resultDiv) return;
+            // حماية تامة لتجنب ظهور خطأ الـ Null نهائياً
+            if (!musicEl || !lyricsEl || !resultDiv) {
+                console.error("بعض العناصر غير موجودة في الصفحة!");
+                return;
+            }
 
-                const music = musicEl.value.trim();
-                const lyrics = lyricsEl.value.trim();
+            const music = musicEl.value.trim();
+            const lyrics = lyricsEl.value.trim();
 
-                if (!music || !lyrics) {
-                    resultDiv.style.color = "#ff6b6b";
-                    resultDiv.innerHTML = "⚠️ الرجاء تعبئة وصف اللحن والكلمات أولاً!";
-                    return;
-                }
+            if (!music || !lyrics) {
+                resultDiv.style.color = "#ff6b6b";
+                resultDiv.innerHTML = "⚠️ الرجاء تعبئة وصف اللحن والكلمات أولاً!";
+                return;
+            }
 
-                resultDiv.style.color = "#4ea8de";
-                resultDiv.innerHTML = "⏳ جاري معالجة وتوليد الأغنية...";
+            resultDiv.style.color = "#4ea8de";
+            resultDiv.innerHTML = "⏳ جاري معالجة وتوليد الأغنية...";
 
-                setTimeout(() => {
-                    resultDiv.style.color = "#52b788";
-                    resultDiv.innerHTML = "✅ تم توليد الأغنية بنجاح!";
-                }, 3000);
-            });
+            // محاكاة التوليد بنجاح
+            setTimeout(() => {
+                resultDiv.style.color = "#52b788";
+                resultDiv.innerHTML = "✅ تم توليد الأغنية بنجاح!";
+            }, 3000);
         }
     </script>
 
-    <!-- أداة المطورين -->
+    <!-- أداة المطورين (Eruda) لتتبع أي أخطاء إن وجدت -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
 
 </body>
 </html>
-
